@@ -1,3 +1,16 @@
+---
+title: 'Lab 4: Data clean & Import'
+output:
+  Html_document:
+author: “”
+date: "3/5/2025"
+execute: 
+echo: true
+  embed-resources: true
+  code-tools: true
+
+---
+
 # Part 1: Setup
 
 ## GitHub Workflow
@@ -161,10 +174,10 @@ names(buoy_final)
 summary(buoy_final)
 
 buoy_final %>%
-  ggplot(aes(y = atmp ))+ 
-  geom_jitter(aes(x= factor(mm),color = mm),width= 0.1, alpha = 0.1)+
-  geom_smooth(method = lm, aes(x= mm))+
-  #scale_color_viridis_d()+
+  ggplot(aes(x= factor(mm),y = atmp ))+ 
+  geom_jitter(aes(color = mm),width= 0.1, alpha = 0.1)+
+  geom_smooth(aes(x= mm), color= "black")+
+  scale_color_viridis_c()+
   guides(color = "none")+
   theme_light()+
   labs(x = "Month in 2024", y = "Air Temperature (Celsius)", title= "Monterey Bay Canyon Air Temperature in 2024")
