@@ -1,11 +1,9 @@
 ---
-title: 'Lab 4: Data clean & Import'
-output:
-  Html_document:
-author: “”
-date: "3/5/2025"
+title: "Lab 4: Data clean & Import"
+format: html
+editor: source
 execute: 
-echo: true
+  echo: true
   embed-resources: true
   code-tools: true
 
