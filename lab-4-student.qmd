@@ -196,8 +196,13 @@ One fun source for data is [Tidy Tuesday](https://github.com/rfordatascience/tid
 
 **For your found data write a brief description of the data and and provide its source.**
 
->Insert your description and link to your source here. Identify 2-3 research questions you could try to answer with this data.  
+>I will be using data from the The History of Himalayan Mountaineering Expeditions. This datatbase has documented the expeditions that have attempted to climb the peakes of the highest mountains in the world. They have collected both climate and demographic data for the expeditions. 
 
+What season poses the greatest risk to mountaineers lives/ success in summiting? 
+
+What peaks has the greatest summiting success in proportion to the attempts? 
+
+How does the use of supplemental oxygen (O2USED, O2NONE) affect summit success?
 
 
 
