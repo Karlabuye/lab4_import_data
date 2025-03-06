@@ -69,7 +69,7 @@ When you read in the data give it an appropriate name for what the data represen
 
 ```{r}
 #| label: load-data
-#| results: hide
+#| eval: false
 og_buoy<- read_table("raw_data/buoy_2024.txt")# whitespace-separated files
 ```
 
@@ -80,8 +80,9 @@ In your data, you will notice the `#` in front of `yr` in the second row. That i
 
 ```{r}
 #| label: load-data-comment
-og_buoy<- read_table("raw_data/buoy_2024.txt", skip=1)
+og_buoy<- read_table("raw_data/buoy_2024.txt", comment="#")
 og_buoy
+#https://r4ds.hadley.nz/data-import
 ```
 
 
@@ -90,7 +91,8 @@ We want to use snake_case for our variable names. Use the `janitor` package to c
 
 ```{r}
 #| label: clean-names
-og_buoy %>%
+#| eval: false
+og_buoy <- og_buoy %>%
   clean_names()
 
 ```
@@ -102,6 +104,8 @@ Write the data to a `csv` file called `buoy_update.csv`. Be sure to write it to 
 
 ```{r}
 #| label: write-data-part-1
+#| eval: false
+write_csv(og_buoy,"raw_data/buoy_update.csv" ) 
 
 ```
 
@@ -117,7 +121,9 @@ Remember that now we are reading back in a data file of type `csv`. Now when you
 
 ```{r}
 #| label: load-data-again
-
+#| eval: false
+working_buoy <- read_csv("raw_data/buoy_update.csv", col_type = list(.default = col_character()), na = c("99", "999")) 
+summary(working_buoy) # checking that changes are made
 ```
 
 This is great! But we created another problem. Now all of our numeric values are being treated like characters and we don't want that. There are a couple of ways to fix this. We can write and reread in the data setting the column types to `double` or we can use the `readr` parsing functions. 
@@ -126,7 +132,8 @@ Here is the code you can use to fix the data without exporting and importing aga
 
 ```{r}
 #| label: parse-double
-buoy_final <- your_file_name |> 
+#| eval: false
+buoy_final <- working_buoy |> 
   mutate(across(.cols = everything(), ~parse_double(.x)))
 ```
 
@@ -134,12 +141,33 @@ buoy_final <- your_file_name |>
 
 Now we have our clean, correctly classified, data ready for analysis as `buoy_final`. Go ahead and write that data as a `csv` file into your `data-clean` file. Once you've done that. Set the data cleaning code chunks to `eval: false` so that you do not rerun them again when you render the document. 
 
+```{r}
+#| label: final data as .csv
+#| eval: false
+write_csv(buoy_final,"clean_data/buoy_final.csv" ) 
+
+```
+
 
 # Part 3: Recreate the Following Visualization
 Now that are data is "analytic ready", go ahead and read in your clean data and use it to try and recreate the following visualization. Do your best to match the following visualization as close as possible. (Hint: when specifying color, you may need to use `factor()` to get R to treat a continuous value as discrete).  
 
 ```{r}
 #| label: monterey-air-temp-viz
+
+buoy_final<- read_csv ("clean_data/buoy_final.csv")
+                       #, col_types = list(MM = col_factor()))
+names(buoy_final)
+summary(buoy_final)
+
+buoy_final %>%
+  ggplot(aes(y = atmp ))+ 
+  geom_jitter(aes(x= factor(mm),color = mm),width= 0.1, alpha = 0.1)+
+  geom_smooth(method = lm, aes(x= mm))+
+  #scale_color_viridis_d()+
+  guides(color = "none")+
+  theme_light()+
+  labs(x = "Month in 2024", y = "Air Temperature (Celsius)", title= "Monterey Bay Canyon Air Temperature in 2024")
 
 
 ```
