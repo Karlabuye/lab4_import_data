@@ -135,30 +135,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="setup" class="level2">
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>In the code chunk below, load in the packages necessary for your analysis. You should only need the <code>tidyverse</code> package for this analysis.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'janitor'
-
-The following objects are masked from 'package:stats':
-
-    chisq.test, fisher.test</code></pre>
-</div>
-</div>
 </section>
 </section>
 <section id="part-2-data-context" class="level1">
@@ -185,7 +161,7 @@ The following objects are masked from 'package:stats':
 <p>Read the data into R. Since it is a <code>txt</code> file it is considered a “whitespace-separated file”. Use the (readr)[https://readr.tidyverse.org/index.html] website to determine the appropriate <code>read_XXX()</code> function.</p>
 <p>When you read in the data give it an appropriate name for what the data represents. The read in file should look like this (note this is just the first seven columns):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>og_buoy<span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"raw_data/buoy_2024.txt"</span>)<span class="co"># whitespace-separated files</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>og_buoy <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"raw_data/buoy_2024.txt"</span>)<span class="co"># whitespace-separated files</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Notice that the data is all read in as a character value and the first row contains information that is not data, but additional information about the variables: this is called a “comment” in the data.</p>
 </section>
@@ -193,32 +169,8 @@ The following objects are masked from 'package:stats':
 <h2 class="anchored" data-anchor-id="step-2-specify-the-comment-row">Step 2: Specify the Comment Row</h2>
 <p>In your data, you will notice the <code>#</code> in front of <code>yr</code> in the second row. That is the symbol that indicates a comment in the data set. Using the cheatsheet or the (readr)[https://readr.tidyverse.org/index.html] website, add an argument to your function that indicates that the comment row begins with <code>#</code>. Your data should now look like this:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>og_buoy<span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"raw_data/buoy_2024.txt"</span>, <span class="at">comment=</span><span class="st">"#"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-── Column specification ────────────────────────────────────────────────────────
-cols(
-  YY = col_double(),
-  MM = col_character(),
-  DD = col_character(),
-  hh = col_character(),
-  mm = col_character(),
-  WDIR = col_double(),
-  WSPD = col_double(),
-  GST = col_double(),
-  WVHT = col_double(),
-  DPD = col_double(),
-  APD = col_double(),
-  MWD = col_double(),
-  PRES = col_double(),
-  ATMP = col_double(),
-  WTMP = col_double(),
-  DEWP = col_double(),
-  VIS = col_double(),
-  TIDE = col_double()
-)</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>og_buoy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>og_buoy <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"raw_data/buoy_2024.txt"</span>, <span class="at">comment=</span><span class="st">"#"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>og_buoy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8,525 × 18
       YY MM    DD    hh    mm     WDIR  WSPD   GST  WVHT   DPD   APD   MWD  PRES
@@ -236,15 +188,15 @@ cols(
 # ℹ 8,515 more rows
 # ℹ 5 more variables: ATMP &lt;dbl&gt;, WTMP &lt;dbl&gt;, DEWP &lt;dbl&gt;, VIS &lt;dbl&gt;, TIDE &lt;dbl&gt;</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#https://r4ds.hadley.nz/data-import</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#https://r4ds.hadley.nz/data-import</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-3-clean-the-variable-names" class="level2">
 <h2 class="anchored" data-anchor-id="step-3-clean-the-variable-names">Step 3: Clean the Variable Names</h2>
 <p>We want to use snake_case for our variable names. Use the <code>janitor</code> package to clean the variable names. Notice, that because month was originally coded <code>MM</code> and minute was originally coded <code>mm</code> that now month is <code>mm</code> and minute is <code>mm_2</code> to create a distinction between them.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>og_buoy <span class="ot">&lt;-</span> og_buoy <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>og_buoy <span class="ot">&lt;-</span> og_buoy <span class="sc">%&gt;%</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-4-write-the-data-part-1" class="level2">
@@ -252,7 +204,7 @@ cols(
 <p>We will have a bit of cleaning to do on the data, but we have an issue. The 99 and 999’s in the data are numeric and not character values. In order for us to specify them as <code>NA</code>s we need to do a little work around.</p>
 <p>Write the data to a <code>csv</code> file called <code>buoy_update.csv</code>. Be sure to write it to your <code>data-raw</code> folder.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(og_buoy,<span class="st">"raw_data/buoy_update.csv"</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(og_buoy,<span class="st">"raw_data/buoy_update.csv"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="step-5-dealing-with-missing-values" class="level2">
@@ -265,18 +217,18 @@ cols(
 </ol>
 <p>Remember that now we are reading back in a data file of type <code>csv</code>. Now when you look at the data we should have <code>NA</code> instead of <code>99</code> or <code>999</code> in our data, for example:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>working_buoy <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"raw_data/buoy_update.csv"</span>, <span class="at">col_type =</span> <span class="fu">list</span>(<span class="at">.default =</span> <span class="fu">col_character</span>()), <span class="at">na =</span> <span class="fu">c</span>(<span class="st">"99"</span>, <span class="st">"999"</span>)) </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(working_buoy) <span class="co"># checking that changes are made</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>working_buoy <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"raw_data/buoy_update.csv"</span>, <span class="at">col_type =</span> <span class="fu">list</span>(<span class="at">.default =</span> <span class="fu">col_character</span>()), <span class="at">na =</span> <span class="fu">c</span>(<span class="st">"99"</span>, <span class="st">"999"</span>)) </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(working_buoy) <span class="co"># checking that changes are made</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>This is great! But we created another problem. Now all of our numeric values are being treated like characters and we don’t want that. There are a couple of ways to fix this. We can write and reread in the data setting the column types to <code>double</code> or we can use the <code>readr</code> parsing functions.</p>
 <p>Here is the code you can use to fix the data without exporting and importing again (we will learn more about the <code>mutate()</code> function. Insert whatever you called your buoy data on the last import for <code>your_file_name</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>buoy_final <span class="ot">&lt;-</span> working_buoy <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">everything</span>(), <span class="sc">~</span><span class="fu">parse_double</span>(.x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>buoy_final <span class="ot">&lt;-</span> working_buoy <span class="sc">|&gt;</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="fu">everything</span>(), <span class="sc">~</span><span class="fu">parse_double</span>(.x)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we have our clean, correctly classified, data ready for analysis as <code>buoy_final</code>. Go ahead and write that data as a <code>csv</code> file into your <code>data-clean</code> file. Once you’ve done that. Set the data cleaning code chunks to <code>eval: false</code> so that you do not rerun them again when you render the document.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(buoy_final,<span class="st">"clean_data/buoy_final.csv"</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_csv</span>(buoy_final,<span class="st">"clean_data/buoy_final.csv"</span> ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -284,69 +236,16 @@ cols(
 <h1>Part 3: Recreate the Following Visualization</h1>
 <p>Now that are data is “analytic ready”, go ahead and read in your clean data and use it to try and recreate the following visualization. Do your best to match the following visualization as close as possible. (Hint: when specifying color, you may need to use <code>factor()</code> to get R to treat a continuous value as discrete).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>buoy_final<span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"clean_data/buoy_final.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 8525 Columns: 18
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-dbl (10): yy, mm, dd, hh, mm_2, wdir, wspd, pres, atmp, wtmp
-lgl  (8): gst, wvht, dpd, apd, mwd, dewp, vis, tide
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>                       <span class="co">#, col_types = list(MM = col_factor()))</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(buoy_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] "yy"   "mm"   "dd"   "hh"   "mm_2" "wdir" "wspd" "gst"  "wvht" "dpd" 
-[11] "apd"  "mwd"  "pres" "atmp" "wtmp" "dewp" "vis"  "tide"</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(buoy_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>       yy             mm               dd              hh       
- Min.   :2024   Min.   : 1.000   Min.   : 1.00   Min.   : 0.00  
- 1st Qu.:2024   1st Qu.: 4.000   1st Qu.: 8.00   1st Qu.: 5.00  
- Median :2024   Median : 6.000   Median :16.00   Median :11.00  
- Mean   :2024   Mean   : 6.503   Mean   :15.73   Mean   :11.46  
- 3rd Qu.:2024   3rd Qu.:10.000   3rd Qu.:23.00   3rd Qu.:17.00  
- Max.   :2024   Max.   :12.000   Max.   :31.00   Max.   :23.00  
-                                                                
-      mm_2            wdir            wspd          gst            wvht        
- Min.   : 0.00   Min.   :  0.0   Min.   : 0.000   Mode:logical   Mode:logical  
- 1st Qu.:11.00   1st Qu.:160.0   1st Qu.: 2.600   NA's:8525      NA's:8525     
- Median :12.00   Median :260.0   Median : 4.100                                
- Mean   :13.69   Mean   :218.8   Mean   : 4.775                                
- 3rd Qu.:15.00   3rd Qu.:290.0   3rd Qu.: 6.700                                
- Max.   :59.00   Max.   :360.0   Max.   :21.600                                
-                                 NA's   :5                                     
-   dpd            apd            mwd               pres             atmp      
- Mode:logical   Mode:logical   Mode:logical   Min.   : 994.7   Min.   : 7.10  
- NA's:8525      NA's:8525      NA's:8525      1st Qu.:1013.6   1st Qu.:11.60  
-                                              Median :1016.4   Median :12.50  
-                                              Mean   :1016.4   Mean   :12.55  
-                                              3rd Qu.:1019.3   3rd Qu.:13.40  
-                                              Max.   :1029.4   Max.   :20.20  
-                                                                              
-      wtmp         dewp           vis            tide        
- Min.   :10.00   Mode:logical   Mode:logical   Mode:logical  
- 1st Qu.:12.40   NA's:8525      NA's:8525      NA's:8525     
- Median :13.20                                               
- Mean   :13.16                                               
- 3rd Qu.:13.80                                               
- Max.   :16.80                                               
-                                                             </code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>buoy_final <span class="sc">%&gt;%</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span> <span class="fu">factor</span>(mm),<span class="at">y =</span> atmp ))<span class="sc">+</span> </span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color =</span> mm),<span class="at">width=</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>)<span class="sc">+</span></span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x=</span> mm), <span class="at">color=</span> <span class="st">"black"</span>)<span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>()<span class="sc">+</span></span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Month in 2024"</span>, <span class="at">y =</span> <span class="st">"Air Temperature (Celsius)"</span>, <span class="at">title=</span> <span class="st">"Monterey Bay Canyon Air Temperature in 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>buoy_final <span class="ot">&lt;-</span> <span class="fu">read_csv</span> (<span class="st">"clean_data/buoy_final.csv"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                       <span class="co">#, col_types = list(MM = col_factor()))</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>buoy_final <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(mm),<span class="at">y =</span> atmp ))<span class="sc">+</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="fu">aes</span>(<span class="at">color =</span> mm),<span class="at">width =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.1</span>)<span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">x =</span> mm), <span class="at">color =</span> <span class="st">"black"</span>)<span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_viridis_c</span>()<span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">color =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>()<span class="sc">+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Month in 2024"</span>, <span class="at">y =</span> <span class="st">"Air Temperature (Celsius)"</span>, <span class="at">title =</span> <span class="st">"Monterey Bay Canyon Air Temperature in 2024"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
